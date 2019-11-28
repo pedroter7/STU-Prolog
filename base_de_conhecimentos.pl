@@ -40,19 +40,18 @@ procedimento(moderada_exs, sem_infec, com_dor, 'Usar espuma de poliuretano').
 procedimento(grande_exs, sem_infec, com_dor, 'Usar espuma de poliuretano').
 
 % Compressão
-procedimento(baixa_exs, sem_infec, alta_ITB, 'elevar MMII por meia hora E')
-procedimento(baixa_exs, sem_infec, moderada_ITB, 'elevar MMII por meia hora E')
-procedimento(baixa_exs, sem_infec, alta_ITB, 'usar hidrocoloide e bota de unna OU')
-procedimento(baixa_exs, sem_infec, moderada_ITB, 'usar hidrocoloide e bota de unna OU')
-procedimento(baixa_exs, sem_infec, alta_ITB, 'usar hidrocoloide e bandagem de compressão graduada elástica')
-procedimento(baixa_exs, sem_infec, moderada_ITB, 'usar hidrocoloide e bandagem de compressão graduada elástica')
-procedimento(moderada_exs, sem_infec, alta_ITB, 'elevar MMII por meia hora e usar alginatode calcio OU')
-procedimento(moderada_exs, sem_infec, moderada_ITB,'elevar MMII por meia hora e usar alginatode calcio OU')
-procedimento(moderada_exs, sem_infec, alta_ITB,'hidrofibra e bota de unna OU'
-procedimento(moderada_exs, sem_infec, moderada_ITB,'elevar MMII por meia hora eusar alginato de cálcio ou hidrofibra e bandagem de compressão graduada elástica') 
-procedimento(grande_exs, sem_infec, moderada_ITB, 'elevar MMII por meia hora e usar espuma de poliuretano OU')
-procedimento(grande_exs, sem_infec, moderada_ITB, 'espuma hidrocelular e bota unna OU')
-procedimento(grande_exs, sem_infec, moderada_ITB, 'elevar MMII por meia hora e usar espuma de poliuretano ou espuma hidrocelular e bandagem de compressao graduada')
+procedimento(baixa_exs, sem_infec, alta_ITB, 'Elevar MMII por meia hora e usar hidrocoloide e bota de unna').
+procedimento(baixa_exs, sem_infec, moderada_ITB, 'Elevar MMII por meia hora usar hidrocoloide e bota de unna').
+procedimento(baixa_exs, sem_infec, alta_ITB, 'Elevar MMII por meia hora e usar hidrocoloide e bandagem de compressão graduada elástica').
+procedimento(baixa_exs, sem_infec, moderada_ITB, 'Elevar MMII por meia hora e usar hidrocoloide e bandagem de compressão graduada elástica').
+procedimento(moderada_exs, sem_infec, alta_ITB, 'Elevar MMII por meia hora e usar alginato de calcio').
+procedimento(moderada_exs, sem_infec, moderada_ITB,'Elevar MMII por meia hora e usar alginato de calcio').
+procedimento(moderada_exs, sem_infec, alta_ITB,'Elevar MMII por meia hora e usar hidrofibra e bota de unna').
+procedimento(moderada_exs, sem_infec, moderada_ITB,'Elevar MMII por meia hora eusar alginato de cálcio ou hidrofibra e bandagem de compressão graduada elástica').
+procedimento(grande_exs, sem_infec, moderada_ITB, 'Elevar MMII por meia hora e usar espuma de poliuretano').
+procedimento(grande_exs, sem_infec, moderada_ITB, 'Elevar MMII por meia hora e usar espuma hidrocelular e bota unna').
+procedimento(grande_exs, sem_infec, moderada_ITB, 'Elevar MMII por meia hora e usar espuma de poliuretano').
+procedimento(grande_exs, sem_infec, moderada_ITB, 'Elevar MMII por meia hora e usar espuma hidrocelular e bandagem de compressao graduada').
 
 
 % Alta
@@ -70,11 +69,14 @@ nome('Ulcera com necrose -> <nome_do_procedimento>: necrose, sem <opcoes>.').
 nome('Ulcera com esfacelos -> <nome_do_procedimento>: esfacelos, sem <opcoes>.').
 nome('Pele ao redor da ulcera seca -> <nome_do_procedimento>: pele_seca, sem <opcoes>.').
 nome('Pele ao redor da ulcera escamosa -> <nome_do_procedimento>: pele_escamosa, sem <opcoes>.').
-nome('Ulcera com baixa exsudacao -> <nome_do_procedimento>: baixa_exs, <opcao>: sem_infec (sem infeccao)/com_infec (com infeccao), <opcao>: com_dor/sem_dor.').
-nome('Ulcera com moderada exsudacao -> <nome_do_procedimento>: moderada_exs, <opcao>: sem_infec (sem infeccao)/com_infec (com infeccao), <opcao>: com_dor/sem_dor.').
-nome('Ulcera com grande exsudacao -> <nome_do_procedimento>: grande_exs, <opcao>: sem_infec (sem infeccao)/com_infec (com infeccao), <opcao>: com_dor/sem_dor.').
+nome('Ulcera com baixa exsudacao (baseada em dor) -> <nome_do_procedimento>: baixa_exs, <opcao>: sem_infec (sem infeccao)/com_infec (com infeccao), <opcao>: com_dor/sem_dor.').
+nome('Ulcera com moderada exsudacao (baseada em dor) -> <nome_do_procedimento>: moderada_exs, <opcao>: sem_infec (sem infeccao)/com_infec (com infeccao), <opcao>: com_dor/sem_dor.').
+nome('Ulcera com grande exsudacao (baseada em dor) -> <nome_do_procedimento>: grande_exs, <opcao>: sem_infec (sem infeccao)/com_infec (com infeccao), <opcao>: com_dor/sem_dor.').
+nome('Ulcera com baixa exsudacao (baseada em ITB) -> <nome_do_procedimento>: baixa_exs, <opcao>: sem_infec (sem infeccao)/com_infec (com infeccao), <opcao>: moderada_ITB/alta_ITB (igual a 0,8/maior que 0,8).').
+nome('Ulcera com moderada exsudacao (baseada em ITB) -> <nome_do_procedimento>: moderada_exs, <opcao>: sem_infec (sem infeccao)/com_infec (com infeccao), <opcao>: moderada_ITB/alta_ITB (igual a 0,8/maior que 0,8).').
+nome('Ulcera com grande exsudacao (baseada em ITB) -> <nome_do_procedimento>: grande_exs, <opcao>: sem_infec (sem infeccao)/com_infec (com infeccao), <opcao>: moderada_ITB/alta_ITB (igual a 0,8/maior que 0,8).').
 nome('Ulcera epitelizada -> <nome_do_procedimento>: epitelizada, sem <opcoes>.').
 
 % Regras de ajuda
 ajuda :- write('Execute: procedimento(<nome_do_procedimento>, <opcoes se for o caso>, <variavel de retorno>)'), nl, write('Execute: ajuda(procedimentos) para visualizar as possibilidades.'), nl.
-ajuda(procedimentos) :- write('Listando todos os nomes de procedimentos:'), nl, nl, forall(nome(NOME), (write(NOME), nl)).
+ajuda(procedimentos) :- write('Listando todos os nomes de procedimentos e opcoes possiveis:'), nl, nl, forall(nome(NOME), (write(NOME), nl)).

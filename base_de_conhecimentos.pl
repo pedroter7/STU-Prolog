@@ -3,6 +3,37 @@
 % Limpeza
 procedimento(troca_curativo, 'Limpar ferida com SF 0,9%').
 
+%Sintomas
+sintoma(paciente,necrose) :-
+pergunta(paciente,', esta com necrose (y/n)? ').
+sintoma(paciente,esfacelos) :-
+      pergunta(paciente,', esta com esfacelos (y/n)? ').
+sintoma(paciente,pele_seca) :-
+      pergunta(paciente,', esta com a pele seca (y/n)? ').
+sintoma(paciente,pele_escamosa) :-
+      pergunta(paciente,', esta com a pele escamosa  (y/n)? ').
+sintoma(paciente,infecçao) :-
+      pergunta(paciente,', esta com infecçao (y/n)? ').
+sintoma(paciente,baixa_exs) :-
+      pergunta(paciente,', esta com esxudaçao baixa (y/n)? ').
+sintoma(paciente,moderada_exs) :-
+pergunta(paciente,', esta com esxudaçao moderada (y/n)? ').
+sintoma(paciente,grande_esx) :-
+      pergunta(paciente,', esta com esxudaçao grande (y/n)? ').
+sintoma(paciente,alta_ITB) :-
+      pergunta(paciente,', esta com ITB alta (y/n)? ').
+sintoma(paciente,moderada_ITB) :-
+      pergunta(paciente,', esta com ITB moderada (y/n)? ').
+sintoma(paciente,baixa_ITB) :-
+      pergunta(paciente,', esta com ITB baixa (y/n)? ').
+sintoma(paciente,com_dor) :-
+      pergunta(paciente,', esta com dor (y/n)? ').
+
+//caso o paciente nao sinta dor, sintoma= sem_dor. ???// 
+
+%HIPOTESES
+hipoteses(paciente,
+
 % Desbridamento
 procedimento(necrose, 'Desbridamento autolitico com hidrogel').
 procedimento(necrose, 'Desbridamento autolitico com hidrocoloide').

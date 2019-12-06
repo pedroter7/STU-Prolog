@@ -5,7 +5,7 @@ procedimento(troca_curativo, 'Limpar ferida com SF 0,9%').
 
 %Sintomas
 sintoma(Paciente,necrose) :-
-pergunta(Paciente,', esta com necrose (y/n)? ').
+      pergunta(Paciente,', esta com necrose (y/n)? ').
 sintoma(Paciente,esfacelos) :-
       pergunta(Paciente,', esta com esfacelos (y/n)? ').
 sintoma(Paciente,pele_seca) :-
@@ -74,34 +74,55 @@ procedimento(Paciente, 'Usar creme restaurador de pH da pele'):-
       sintoma(Paciente, pele_escamosa).
 
 % Coberturas
-procedimento(
- sintoma(Paciente,baixa_exs),
- sintoma(Paciente, sem_infec),
- sintoma(Paciente, sem_dor),
- 'Usar hidrocoloide'):-
+procedimento(Paciente, 'Usar hidrocoloide'):-
+    sintoma(Paciente,baixa_exs),
+    sintoma(Paciente, sem_infec),
+    sintoma(Paciente, sem_dor).
+
+ procedimento(Paciente,'Usar alginato de calcio'):-
+    sintoma(Paciente,moderada_exs),
+    sintoma(Paciente, sem_infec),
+    sintoma(Paciente, sem_dor).
  
-procedimento(
- sintoma(Paciente,moderada_exs)
- sintoma(Paciente, sem_infec),
- sintoma(Paciente, sem_dor),
- 'Usar alginato de calcio').
-procedimento(
- sintoma(Paciente,moderada_exs),
- sintoma(Paciente, sem_infec),
- sintoma(Paciente, sem_dor),
- 'Usar hidrofibra').
-procedimento(
- sintoma(Paciente,moderada_exs),
- sintoma(Paciente, com_infec),
- sintoma(Paciente, sem_dor),
- 'Usar alginato de calcio com prata').
-procedimento(moderada_exs, com_infec, sem_dor, 'Usar hidrofibra com prata').
-procedimento(grande_exs, sem_infec, sem_dor, 'Usar espuma de poliuretano').
-procedimento(grande_exs, sem_infec, sem_dor, 'Usar espuma hidrocelular').
-procedimento(grande_exs, com_infec, sem_dor, 'Usar espuma de poliuretano com prata').
-procedimento(baixa_exs, sem_infec, com_dor, 'Usar hidrocoloide').
-procedimento(moderada_exs, sem_infec, com_dor, 'Usar espuma de poliuretano').
-procedimento(grande_exs, sem_infec, com_dor, 'Usar espuma de poliuretano').
+procedimento(Paciente, 'Usar hidrofibra'):-
+    sintoma(Paciente,moderada_exs),
+    sintoma(Paciente, sem_infec),
+    sintoma(Paciente, sem_dor).
+
+procedimento(Paciente,'Usar alginato de calcio com prata'):-
+    sintoma(Paciente, moderada_exs),
+    sintoma(Paciente, com_infec),
+    sintoma(Paciente, sem_dor).
+procedimento(Paciente, 'Usar hidrofibra com prata'):-
+     sintoma(Paciente, moderada_exs),
+     sintoma(Paciente, com_infec),
+     sintoma(Paciente, sem_dor). 
+procedimento(Paciente, 'Usar espuma de poliuretano'):-
+     sintoma(Paciente, grande_exs),
+     sintoma(Paciente, sem_infec),
+     sintoma(Paciente, sem_dor).
+
+procedimento(Paciente, 'Usar espuma hidrocelular'):-
+     sintoma(Paciente,grande_exs),
+     sintoma(Paciente, sem_infec),
+     sintoma(Paciente, sem_dor).
+procedimento(Paciente,  'Usar espuma de poliuretano com prata'):-
+     sintoma(Paciente,grande_exs),
+     sintoma(Paciente, com_infec),
+     sintoma(Paciente, .
+procedimento(Paciente,'Usar hidrocoloide'):-
+     sintoma(Paciente,baixa_exs),
+     sintoma(Paciente, sem_infec),
+     sintoma(Paciente, com_dor).
+procedimento(Paciente, 'Usar espuma de poliuretano'):-
+     sintoma(Paciente, moderada_exs),
+     sintoma(Paciente, sem_infec),
+     sintoma(Paciente, com_dor).
+ procedimento(Paciente,  'Usar espuma de poliuretano'):-
+sintoma(Paciente,grande_exs),
+sintoma(Paciente, sem_infec),
+sintoma(Paciente, com_dor).
+
 
 % Compressão
 procedimento(Paciente,'Elevar MMII por meia hora e usar hidrocoloide e bota de unna'):-
@@ -149,7 +170,7 @@ procedimento(Paciente,  'Elevar MMII por meia hora e usar espuma de poliuretano'
     sintoma(Paciente, moderada_ITB).
  
 procedimento(Paciente,'Elevar MMII por meia hora e usar espuma hidrocelular e bota unna'):-
-sintoma(Paciente, grande_exs),
+ sintoma(Paciente, grande_exs),
 sintoma(Paciente, sem_infec),
 sintoma(Paciente, moderada_ITB).
 

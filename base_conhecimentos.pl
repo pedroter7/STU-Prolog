@@ -79,6 +79,20 @@ procedimento(grande_exsudacao) :-
     read(Resposta_gde_infec),
     ( (Resposta_gde_infec==y -> tratamento(gde_exsudacao_infec)) ; tratamento(gde_exsudacao) )).
 
+procedimento(compressao_itb) :-
+    nl,
+    write('qual o nível de ITB? '),
+    read(Resposta_ITB),
+    ( (Resposta_ITB>=0,8), -> procedimento(exsudacao_itb)).
+
+procedimento(exsudacao_itb) :-
+    nl,
+    write('Qual o nivel de exsudacao? (0-baixo, 1-moderado, 2-grande) '),
+    read(Resposta_nivel_exsudacao),
+    ( (Resposta_nivel_exsudacao==0 -> tratamento(baixa_exsudacao_itb)) ; (Resposta_nivel_exsudacao==1 -> tratamento(moderada_exsudacao_itb)); (Resposta_nivel_exsudacao==2 -> tratamento(grande_exsudacao_itb)) ).
+    
+
+
 /*
  * TRATAMENTOS ESPECIFICOS
 */
@@ -175,6 +189,34 @@ tratamento(gde_exsudacao_infec) :-
     nl, nl,
     write('Use espuma de poliuretano com prata.'),
     nl, nl.    
+
+tratamento(baixa_exsudacao_itb) :-
+    nl,
+    write('para uma ulcera com itb maior ou igual a 0,8, com baixa exsudacao e sem infeccao, realize um dos procedimentos: '),
+    nl, nl,
+    write('elevar o MMII por meia hora e usar hidrocoloide e bota de unna'),
+    nl, nl,
+    write('elevar MMII por meia hora e usar hidrocoloide e bandagem de compressao graduada elastica'),
+    nl, nl.
+
+tratamento(moderada_exsudacao_itb) :-
+    nl,
+    write('para uma ulcera com itb maior ou igual a 0,8, com moderada exsudacao e sem infeccao, realize um dos procedimentos: '),
+    nl, nl,
+    write('elevar MMII por meia hora e usar alginato de calcio ou hidrofibra e bota de unna'),
+    nl, nl,
+    write('elevar MMII por meia hora e usar alginato de calcio ou fibra e bandagem de compressao graduada elastica'),
+    nl, nl.
+
+tratamento(grande_exsudacao_itb) :-
+    nl, 
+    write('para uma ulcera com itb maior ou igual a 0,8, com grande exsudacao e sem infeccao, realize um dos procedimentos: '),
+    nl, nl,
+    write('elevar o MMII por meia hora e usar esuma de poliuretano ou espuma hidrocelular e bota de unna'),
+    nl, nl,
+    write('elevar MMII por meia hora e usar espuma de poliuretano ou espuma de hidrocelular e bandagem de compressao graduada'),
+    nl, nl.
+
 
 /*
  * RUNTIME

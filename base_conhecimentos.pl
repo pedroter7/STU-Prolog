@@ -1,3 +1,5 @@
+:- style_check(-singleton). % remove singleton variable warning
+
 /*
  * PERGUNTAS
 */
@@ -5,22 +7,28 @@
 pergunta(limpeza) :-
     write('Sera necessaria uma troca de curativo? (y/n) '),
     read(Resposta_limpeza),
-    (Resposta_limpeza==y -> procedimento(limpeza)).
+    ((Resposta_limpeza==y -> procedimento(limpeza)) ; write('')).
 
 pergunta(desbridamento) :-
     write('A ulcera apresenta necrose ou esfacelos? (y/n) '),
     read(Resposta_desbridamento),
-    (Resposta_desbridamento==y -> procedimento(desbridamento)).
+    ((Resposta_desbridamento==y -> procedimento(desbridamento)) ; write('')).
 
 pergunta(cuidados_pele) :-
     write('A pele ao redor da ulcera esta seca ou escamosa? (y/n) '),
     read(Resposta_pele),
-    (Resposta_pele==y -> procedimento(cuidados_pele)).
+    ((Resposta_pele==y -> procedimento(cuidados_pele)) ; write('')).
 
 pergunta(coberturas) :-
     write('A ulcera apresenta exsudacao? (y/n) '),
     read(Resposta_exsudacao),
-    (Resposta_exsudacao==y -> procedimento(exsudacao)).
+    ((Resposta_exsudacao==y -> procedimento(exsudacao)) ; write('')).
+
+pergunta(alta, Paciente, Idade, Sexo) :-
+    write('A ulcera esta epitelizada? (y/n) '),
+    read(Resposta_alta),
+    ( (Resposta_alta==y -> procedimento(alta, Paciente, Idade, Sexo)) ;
+    write('O paciente so deve receber alta quando a ulcera estiver epitelizada.')).
 
 /*
  * PROCEDIMENTOS
@@ -79,19 +87,13 @@ procedimento(grande_exsudacao) :-
     read(Resposta_gde_infec),
     ( (Resposta_gde_infec==y -> tratamento(gde_exsudacao_infec)) ; tratamento(gde_exsudacao) )).
 
-procedimento(compressao_itb) :-
+procedimento(alta, Paciente, Idade, Sexo) :-
     nl,
-    write('qual o nível de ITB? '),
-    read(Resposta_ITB),
-    ( (Resposta_ITB>=0,8), -> procedimento(exsudacao_itb)).
-
-procedimento(exsudacao_itb) :-
-    nl,
-    write('Qual o nivel de exsudacao? (0-baixo, 1-moderado, 2-grande) '),
-    read(Resposta_nivel_exsudacao),
-    ( (Resposta_nivel_exsudacao==0 -> tratamento(baixa_exsudacao_itb)) ; (Resposta_nivel_exsudacao==1 -> tratamento(moderada_exsudacao_itb)); (Resposta_nivel_exsudacao==2 -> tratamento(grande_exsudacao_itb)) ).
-    
-
+    write('O seguinte paciente pode receber alta:'),
+    nl, nl,
+    write('Nome: '), write(Paciente), nl,
+    write('Idade: '), write(Idade), nl,
+    write('Sexo: '), write(Sexo).
 
 /*
  * TRATAMENTOS ESPECIFICOS
@@ -136,17 +138,32 @@ tratamento(esfacelos) :-
     nl, nl.
 
 tratamento(baixa_exsudacao) :-
+    (nl,
+    write('Insira o nivel de ITB do paciente: '),
+    read(Resposta_ITB0),
+    (Resposta_ITB0>=0.8 -> tratamento(baixa_exsudacao_itb))) ;
+    (nl,
+    write('O nivel de ITB esta ok.'),
     nl,
     write('Para uma ulcera com baixa exsudacao, sem infeccao nem dor:'),
     nl, nl,
     write('Aplique hidrocoloide'),
-    nl, nl.
+    nl, nl).
 
 tratamento(baixa_exsudacao_dor) :-
     nl,
     write('Para uma ulcera com baixa exsudacao, sem infeccao mas com dor:'),
     nl, nl,
     write('Aplique hidrocoloide'),
+    nl, nl.
+
+tratamento(baixa_exsudacao_itb) :-
+    nl,
+    write('Para uma ulcera com itb maior ou igual a 0,8, com baixa exsudacao e sem infeccao, realize um dos procedimentos:'),
+    nl, nl,
+    write('evalevar o MMII por meia hora e usar hidrocoloide e bota de unna;'),
+    nl, nl,
+    write('Elevar MMII por meia hora e usar hidrocoloide e bandagem de compressao graduada elastica.'),
     nl, nl.
 
 tratamento(mod_gde_dor) :-
@@ -157,13 +174,19 @@ tratamento(mod_gde_dor) :-
     nl, nl.
 
 tratamento(mod_exsudacao) :-
+    (nl,
+    write('Insira o nivel de ITB do paciente: '),
+    read(Resposta_ITB1),
+    (Resposta_ITB1>=0.8 -> tratamento(moderada_exsudacao_itb))) ;
+    (nl,
+    write('O nivel de ITB esta ok.'),
     nl,
     write('Para uma ulcera com moderada exsudacao e sem infeccao, realize um dos procedimentos:'),
     nl, nl,
     write('Aplique alginato de calcio;'),
     nl, nl,
     write('Aplique hidrofibra.'),
-    nl, nl.
+    nl, nl).
 
 tratamento(mod_exsudacao_infec) :-
     nl,
@@ -174,47 +197,44 @@ tratamento(mod_exsudacao_infec) :-
     write('Aplique hidrofibra com prata.'),
     nl, nl.
 
+tratamento(moderada_exsudacao_itb) :-
+    nl,
+    write('Para uma ulcera com itb maior ou igual a 0,8, com moderada exsudacao e sem infeccao, realize um dos procedimentos:'),
+    nl, nl,
+    write('Elevar MMII por meia hora e usar alginato de calcio ou hidrofibra e bota de unna;'),
+    nl, nl,
+    write('Elevar MMII por meia hora e usar alginato de calcio ou fibra e bandagem de compressao graduada elastica.'),
+    nl, nl.
+
 tratamento(gde_exsudacao) :-
+    (nl,
+    write('Insira o nivel de ITB do paciente: '),
+    read(Resposta_ITB2),
+    (Resposta_ITB2>=0.8 -> tratamento(grande_exsudacao_itb)) ) ;
+    (nl,
+    write('O nivel de ITB esta ok.'),
     nl,
     write('Para uma ulcera com grande exsudacao e sem infeccao, realize um dos procedimentos:'),
     nl, nl,
     write('Use espuma de poliuretano'),
     nl, nl,
     write('Use espuma hidrocelular'),
-    nl, nl.
+    nl, nl).
 
 tratamento(gde_exsudacao_infec) :-
     nl,
     write('Para uma ulcera com grande exsudacao e presenca de infeccao:'),
     nl, nl,
     write('Use espuma de poliuretano com prata.'),
-    nl, nl.    
-
-tratamento(baixa_exsudacao_itb) :-
-    nl,
-    write('para uma ulcera com itb maior ou igual a 0,8, com baixa exsudacao e sem infeccao, realize um dos procedimentos: '),
-    nl, nl,
-    write('elevar o MMII por meia hora e usar hidrocoloide e bota de unna'),
-    nl, nl,
-    write('elevar MMII por meia hora e usar hidrocoloide e bandagem de compressao graduada elastica'),
-    nl, nl.
-
-tratamento(moderada_exsudacao_itb) :-
-    nl,
-    write('para uma ulcera com itb maior ou igual a 0,8, com moderada exsudacao e sem infeccao, realize um dos procedimentos: '),
-    nl, nl,
-    write('elevar MMII por meia hora e usar alginato de calcio ou hidrofibra e bota de unna'),
-    nl, nl,
-    write('elevar MMII por meia hora e usar alginato de calcio ou fibra e bandagem de compressao graduada elastica'),
     nl, nl.
 
 tratamento(grande_exsudacao_itb) :-
-    nl, 
-    write('para uma ulcera com itb maior ou igual a 0,8, com grande exsudacao e sem infeccao, realize um dos procedimentos: '),
+    nl,
+    write('Para uma ulcera com itb maior ou igual a 0,8, com grande exsudacao e sem infeccao, realize um dos procedimentos:'),
     nl, nl,
-    write('elevar o MMII por meia hora e usar esuma de poliuretano ou espuma hidrocelular e bota de unna'),
+    write('Elevar o MMII por meia hora e usar esuma de poliuretano ou espuma hidrocelular e bota de unna;'),
     nl, nl,
-    write('elevar MMII por meia hora e usar espuma de poliuretano ou espuma de hidrocelular e bandagem de compressao graduada'),
+    write('Elevar MMII por meia hora e usar espuma de poliuretano ou espuma de hidrocelular e bandagem de compressao graduada.'),
     nl, nl.
 
 
@@ -235,20 +255,32 @@ apresentacao :-
     write("O programa recolhera alguns dados e indicara os possiveis procedimentos a serem tomados."),
     nl.
 
+recomecar :-
+    nl, nl,
+    write('Digite uma opcao: 0-Novo paciente ; 1-Reiniciar a consulta com o mesmo paciente ?  '),
+    read(Resposta_recomecar),
+    ( (Resposta_recomecar==0 -> (dados_paciente(Paciente, Idade, Sexo), coletar_dados(Paciente, Idade, Sexo))) ; (Resposta_recomecar==1 -> coletar_dados(Paciente, Idade, Sexo)) ; recomecar ).
 
-    coletar_dados :-
-        nl,
-        pergunta(limpeza),
-        pergunta(desbridamento),
-        pergunta(cuidados_pele),
-        pergunta(coberturas).
+coletar_dados(Paciente, Idade, Sexo) :-
+    nl,
+    (pergunta(limpeza),
+    pergunta(desbridamento),
+    pergunta(cuidados_pele),
+    pergunta(coberturas),
+    pergunta(alta, Paciente, Idade, Sexo)),
+    nl, nl,
+    write('Deseja realizar (ou repetir) uma nova coleta de dados? (y/n) '),
+    read(Resposta_comecar),
+    ( (Resposta_comecar==y -> recomecar) ; write('Encerrando o atendimento. Obrigado por utilizar o programa!')).
 
 
-dados_paciente(Paciente, Idade) :-
+dados_paciente(Paciente, Idade, Sexo) :-
     write("Nome do paciente (entre aspas simples): "),
     read(Paciente),
     write("Idade do paciente: "),
     read(Idade),
+    write("Sexo do paciente ('M'/'F'): "),
+    read(Sexo),
     write("O sistema agora ira coletar dados sobre o quadro clinico do paciente "),
     write(Paciente), write('.'),
     nl.
@@ -257,5 +289,5 @@ dados_paciente(Paciente, Idade) :-
 comecar :-
     apresentacao,
     nl,
-    dados_paciente(Paciente, Idade),
-    coletar_dados.
+    dados_paciente(Paciente, Idade, Sexo),
+    coletar_dados(Paciente, Idade, Sexo).
